@@ -1,0 +1,5 @@
+In this one i am going to write about what i am thinking whilst doing the code.
+
+Here is the basic plan i have created a login interface so what i thought is maybe we can create like a profile for this blockchain one cause it can manage a database of info too.
+
+First i am going to make a program called duck.c for helping me during the code.
