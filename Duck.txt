@@ -9,3 +9,6 @@ Just completed creating the duck.c for helping write my blog easily.
 
 Me to Duck 22/11/2021 17:01
 Here when i will start linking nodes togther i need a previous and next node for each node but if the node is the first node or if its the last node for that what i will do is assign a default value to each node and change it if there are any previous node and next node but leave it if there isnt one.
+
+Me to Duck 22/11/2021 18:43
+Created a new datatype so that i can store relevant and neccessary information together, now i am going to try to bring hashing into the scene for that i will create another file to first test out and implement it there and then use that experience here, all of it progress will be on a different branch.

@@ -1,10 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
+
+typedef struct transaction
+{
+    char debit_credit;
+    float amount;
+    char username[20];
+    
+}
+transaction;
 typedef struct node
 {
     char previous_node_hash[258];
     char node_hash[258];
-    char node_content[258];
+    transaction data;
     char next_node[258];
 }
 node;
