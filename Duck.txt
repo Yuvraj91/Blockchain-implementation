@@ -3,3 +3,9 @@ In this one i am going to write about what i am thinking whilst doing the code.
 Here is the basic plan i have created a login interface so what i thought is maybe we can create like a profile for this blockchain one cause it can manage a database of info too.
 
 First i am going to make a program called duck.c for helping me during the code.
+
+Me to Duck 22/11/2021 16:51
+Just completed creating the duck.c for helping write my blog easily.
+
+Me to Duck 22/11/2021 17:01
+Here when i will start linking nodes togther i need a previous and next node for each node but if the node is the first node or if its the last node for that what i will do is assign a default value to each node and change it if there are any previous node and next node but leave it if there isnt one.
