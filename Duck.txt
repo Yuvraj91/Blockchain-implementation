@@ -12,3 +12,11 @@ Here when i will start linking nodes togther i need a previous and next node for
 
 Me to Duck 22/11/2021 18:43
 Created a new datatype so that i can store relevant and neccessary information together, now i am going to try to bring hashing into the scene for that i will create another file to first test out and implement it there and then use that experience here, all of it progress will be on a different branch.
+
+Me to Duck 24/11/2021 20:42
+so i am back after 2 days of school, first let me re-understtand what i did and what i have to do now.
+
+Me to Duck 24/11/2021 20:44
+The transaction data type will hold now hold more information: the source and destination of the payment
+
+Me to Duck 24/11/2021 20:45

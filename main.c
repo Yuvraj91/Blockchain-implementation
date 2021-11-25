@@ -5,8 +5,8 @@ typedef struct transaction
 {
     char debit_credit;
     float amount;
-    char username[20];
-    
+    char username_origin[20];
+    char username_destination[20];
 }
 transaction;
 typedef struct node
