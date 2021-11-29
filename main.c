@@ -30,7 +30,7 @@ char *sha256(char *str)
     SHA256_Update(&sha256, str, strlen(str));
     SHA256_Final(hash, &sha256);
     int i = 0;
-    char *hash_str = (char *)malloc(SHA256_DIGEST_LENGTH * sizeof(char));
+    char *hash_str = (char *)malloc(SHA256_DIGEST_LENGTH * sizeof(char)*256);
     for (i = 0; i < SHA256_DIGEST_LENGTH; i++)
     {
         sprintf(hash_str + (i * 2), "%02x", hash[i]);
@@ -96,18 +96,18 @@ int losin(void){
             return 1;
         }
         //buffer for read
-        char buffer[42];
+        char buffer[256];
 
         int row = -1;
         int column = 0;
-        while(fgets(buffer, 42, db)){
+        while(fgets(buffer, 256, db)){
             column = 0;
             row++;
             char *data = strtok(buffer, ", ");
             while(data){
-                if(strcmp(data,template_profile.username) == 0){
+                if(strcmp(data,sha256(template_profile.username)) == 0){
                     data = strtok(NULL,", ");
-                    if(strcmp(data, template_profile.password) == 0){
+                    if(strcmp(data, sha256(template_profile.password)) == 0){
                         printf("You are now logged in as %s\n",template_profile.username);
                         return 0;
                     }
@@ -131,15 +131,15 @@ int losin(void){
             return 1;
         }
         //buffer for reading
-        char buffer[42];
+        char buffer[256];
 
         int row = -1;
 
-        while(fgets(buffer, 42, db)){
+        while(fgets(buffer, 256, db)){
             row++;
             char *data = strtok(buffer, ", ");
             while(data){
-                if(strcmp(data,template_profile.username) == 0){
+                if(strcmp(data,sha256(template_profile.username)) == 0){
                     printf("Username already exits");
                     return 0;
                 }
@@ -147,7 +147,7 @@ int losin(void){
             }
         }
         
-        fprintf(db, "\n%s, %s,",template_profile.username, template_profile.password);
+        fprintf(db, "\n%s, %s,",sha256(template_profile.username), sha256(template_profile.password));
         printf("Account created\n");
         
         fclose(db);

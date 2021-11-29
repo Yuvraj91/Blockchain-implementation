@@ -13,7 +13,7 @@ Here when i will start linking nodes togther i need a previous and next node for
 Me to Duck 22/11/2021 18:43
 Created a new datatype so that i can store relevant and neccessary information together, now i am going to try to bring hashing into the scene for that i will create another file to first test out and implement it there and then use that experience here, all of it progress will be on a different branch.
 
-Me to Duck 24/11/2021 20:42
+Me to Duck 24/11/2021 20:256
 so i am back after 2 days of school, first let me re-understtand what i did and what i have to do now.
 
 Me to Duck 24/11/2021 20:44
@@ -31,3 +31,6 @@ Now i have configured my old project and now i will first import it into the new
 
 Me to Duck 29/11/2021 16:35
 Finally finally made the hashing function work will do the needfull to secure the database and user data with the hashing function.
+
+Me to Duck 29/11/2021 17:13
+Successfully made the hash work perfectly now no one can see what is the actual data, i might still do some more tinkering to find some loopholes in the code but for now just to save the progress i will commit these changes.
