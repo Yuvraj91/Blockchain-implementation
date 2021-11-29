@@ -25,3 +25,6 @@ I am really excited to start again on my project, had some issues in between and
 
 Me to Duck 28/11/2021 06:56
 Now i have studied and tried different things and have decide what to do next so first let me merge my login interface into this thing and then i think i will start ahead.
+
+Me to Duck 29/11/2021 15:45
+Now i have configured my old project and now i will first import it into the new project, the projects have also been updated to match their purpose more.
