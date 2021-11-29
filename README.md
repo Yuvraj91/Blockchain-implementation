@@ -1,2 +1,1 @@
-# Blockchain-implementation
-Creating something where we chain things together instead of master record, and will try some other things that i want to practice.
+Trying a system where payments are linked together in a database somewhat like blockchain, it is just an abstract of what a blockchain is going to be, will be using my older project for login and user management.
