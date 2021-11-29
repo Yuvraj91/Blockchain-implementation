@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <openssl/sha.h>
-
+#include <unistd.h>
 typedef struct transaction
 {
     char debit_credit;
@@ -50,7 +50,7 @@ char losi(void)
 }
 
 //login and signup validation
-int losin(void){
+char *losin(void){
     //custom data-structure for profile
     typedef struct
     {
@@ -93,7 +93,7 @@ int losin(void){
         //exceptional handling
         if(db == NULL){
             printf("Some error opening file\n");
-            return 1;
+            return "failed";
         }
         //buffer for read
         char buffer[256];
@@ -109,18 +109,20 @@ int losin(void){
                     data = strtok(NULL,", ");
                     if(strcmp(data, sha256(template_profile.password)) == 0){
                         printf("You are now logged in as %s\n",template_profile.username);
-                        return 0;
+                        char *logged_in_user = (char *)malloc(20 * sizeof(char));
+                        strcpy(logged_in_user,template_profile.username);
+                        return logged_in_user;
                     }
                     else{
                         printf("Either the password or the username is not correct");
-                        return 0;
+                        return "passed";
                     }
                 }
                 data = strtok(NULL,", ");
             }
         }
         fclose(db);
-        return 0;
+        return "passed";
     }
     else{
         //opening database
@@ -128,7 +130,7 @@ int losin(void){
         //exceptional handling
         if(db == NULL){
             printf("Some error opening file\n");
-            return 1;
+            return "failed";
         }
         //buffer for reading
         char buffer[256];
@@ -141,7 +143,7 @@ int losin(void){
             while(data){
                 if(strcmp(data,sha256(template_profile.username)) == 0){
                     printf("Username already exits");
-                    return 0;
+                    return "passed";
                 }
                 data = strtok(NULL,", ");
             }
@@ -155,6 +157,10 @@ int losin(void){
 }
 
 int main(void){
-    losin();
+    char *username = losin();
+    //wait for 2 seconds
+    sleep(2);
+    system("clear");
+    printf("Welcome %s\n",username);
     return 0;
 }
