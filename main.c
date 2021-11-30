@@ -40,19 +40,40 @@ char *sha256(char *str)
     return hash_str;
 }
 //login and signup validation
-char losi(void)
+char losi(char *username, char *password)
 {
-    system("clear");
-    printf("(L)ogin\n(S)ignup\n");
-    char losi;
-    scanf("%c", &losi);
-    losi = tolower(losi);
-    system("clear");
-    return losi;
+    do
+    {
+        system("clear");
+        printf("(L)ogin\n(S)ignup\n");
+        char losi;
+        scanf("%c", &losi);
+        losi = tolower(losi);
+        system("clear");
+        
+        if(losi == 'l'){
+            printf("username:- ");
+            scanf("%s",username);
+            printf("password:- ");
+            scanf("%s",password);
+            return losi;
+        }
+        else if(losi == 's'){
+            printf("username:- ");
+            scanf("%s",username);
+            printf("password:- ");
+            scanf("%s",password);
+            return losi;
+        }
+        else{
+            continue;
+        }
+    
+    }while(1);
 }
 
 //login and signup validation
-char *losin(void){
+int losin(void){
     //custom data-structure for profile
     typedef struct
     {
@@ -61,108 +82,79 @@ char *losin(void){
     }
     profile;
     profile template_profile;
-    char a;
-    //login and signup prompt
-    do
-    {
-        a = losi();
-
+    while(1){
+        system("clear");
+        char a = losi(&template_profile.username, &template_profile.password);
         if(a == 'l'){
-            printf("username:- ");
-            scanf("%s",template_profile.username);
-            printf("password:- ");
-            scanf("%s",template_profile.password);
-            break;
-        }
-        else if(a == 's'){
-            printf("username:- ");
-            scanf("%s",template_profile.username);
-            printf("password:- ");
-            scanf("%s",template_profile.password);
-            break;
+            //opening database
+            FILE *db = fopen("user_database.csv","r");
+            //exceptional handling
+            if(db == NULL){
+                printf("Some error opening file\n");
+                return 1;
+            }
+            //buffer for read
+            char buffer[256];
+
+            int row = -1;
+            int column = 0;
+            while(fgets(buffer, 256, db)){
+                column = 0;
+                row++;
+                char *data = strtok(buffer, ", ");
+                while(data){
+                    if(strcmp(data,sha256(template_profile.username)) == 0){
+                        data = strtok(NULL,", ");
+                        if(strcmp(data, sha256(template_profile.password)) == 0){
+                            printf("You are now logged in as %s\n",template_profile.username);
+                            return 0; 
+                        }
+                        else{
+                            printf("Either the password or the username is not correct");
+                            system("clear");
+                            continue;
+                        }
+                    }
+                    data = strtok(NULL,", ");
+                }
+            }
+            fclose(db);
+            return 0;
         }
         else{
-            continue;
-        }
-    
-    }while(1);
+            //opening database
+            FILE *db = fopen("user_database.csv","r+");
+            //exceptional handling
+            if(db == NULL){
+                printf("Some error opening file\n");
+                return 1;
+            }
+            //buffer for reading
+            char buffer[256];
 
-    system("clear");
+            int row = -1;
 
-    if(a == 'l'){
-        //opening database
-        FILE *db = fopen("user_database.csv","r");
-        //exceptional handling
-        if(db == NULL){
-            printf("Some error opening file\n");
-            return "failed";
-        }
-        //buffer for read
-        char buffer[256];
-
-        int row = -1;
-        int column = 0;
-        while(fgets(buffer, 256, db)){
-            column = 0;
-            row++;
-            char *data = strtok(buffer, ", ");
-            while(data){
-                if(strcmp(data,sha256(template_profile.username)) == 0){
+            while(fgets(buffer, 256, db)){
+                row++;
+                char *data = strtok(buffer, ", ");
+                while(data){
+                    if(strcmp(data,sha256(template_profile.username)) == 0){
+                        printf("Username already exits");
+                        system("clear");
+                    }
                     data = strtok(NULL,", ");
-                    if(strcmp(data, sha256(template_profile.password)) == 0){
-                        printf("You are now logged in as %s\n",template_profile.username);
-                        char *logged_in_user = (char *)malloc(20 * sizeof(char));
-                        strcpy(logged_in_user,template_profile.username);
-                        return logged_in_user; 
-                    }
-                    else{
-                        printf("Either the password or the username is not correct");
-                        return "passed";
-                    }
                 }
-                data = strtok(NULL,", ");
             }
-        }
-        fclose(db);
-        return "passed";
-    }
-    else{
-        //opening database
-        FILE *db = fopen("user_database.csv","r+");
-        //exceptional handling
-        if(db == NULL){
-            printf("Some error opening file\n");
-            return "failed";
-        }
-        //buffer for reading
-        char buffer[256];
-
-        int row = -1;
-
-        while(fgets(buffer, 256, db)){
-            row++;
-            char *data = strtok(buffer, ", ");
-            while(data){
-                if(strcmp(data,sha256(template_profile.username)) == 0){
-                    printf("Username already exits");
-                    return "passed";
-                }
-                data = strtok(NULL,", ");
-            }
-        }
         
-        fprintf(db, "\n%s, %s,",sha256(template_profile.username), sha256(template_profile.password));
-        printf("Account created\n");
+            fprintf(db, "\n%s, %s,",sha256(template_profile.username), sha256(template_profile.password));
+            printf("Account created\n");
         
-        fclose(db);
+            fclose(db);
+        }
     }
 }
 
 int main(void){
-    char *username = losin();
-    //wait for 2 seconds
-    sleep(2);
-    system("clear");
-    printf("Welcome %s\n",username);
+    losin();
     return 0;
 }
