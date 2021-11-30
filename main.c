@@ -93,33 +93,38 @@ int losin(void){
                 printf("Some error opening file\n");
                 return 1;
             }
-            //buffer for read
+            //buffer for reading
             char buffer[256];
-
-            int row = -1;
-            int column = 0;
-            while(fgets(buffer, 256, db)){
-                column = 0;
-                row++;
-                char *data = strtok(buffer, ", ");
-                while(data){
-                    if(strcmp(data,sha256(template_profile.username)) == 0){
-                        data = strtok(NULL,", ");
-                        if(strcmp(data, sha256(template_profile.password)) == 0){
-                            printf("You are now logged in as %s\n",template_profile.username);
-                            return 0; 
-                        }
-                        else{
-                            printf("Either the password or the username is not correct");
-                            system("clear");
-                            continue;
-                        }
+            //reading file
+            char *password = malloc(256);
+            char *username = malloc(256);
+            while(fgets(buffer,256,db)){
+                //splitting data
+                char *token = malloc(256);
+                token = strtok(buffer,",");
+                int i = 0;
+                while(token){
+                    if(i == 0){
+                        strcpy(username,token);
                     }
-                    data = strtok(NULL,", ");
+                    else if(i == 1){
+                        strcpy(password,token);
+                    }
+                    token = strtok(NULL,",");
+                    i++;
+                }
+                //comparing data
+                if(strcmp(sha256(template_profile.username),username) == 0 ){
+                    if(strcmp(sha256(template_profile.password),password) == 0){
+                        printf("Login Successful\n");
+                        fclose(db);
+                        return 0;
+                    }
+                    else{
+                        printf("Wrong Password\n");
+                    }
                 }
             }
-            fclose(db);
-            return 0;
         }
         else{
             //opening database
