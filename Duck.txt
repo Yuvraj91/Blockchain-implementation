@@ -34,3 +34,5 @@ Finally finally made the hashing function work will do the needfull to secure th
 
 Me to Duck 29/11/2021 17:13
 Successfully made the hash work perfectly now no one can see what is the actual data, i might still do some more tinkering to find some loopholes in the code but for now just to save the progress i will commit these changes.
+Me to Duck 30/11/2021 08:12
+I tested my code with valgrind to check memory leaks and found a few leaks, i have tried to fix them, most of them did but i couldnt fix this one memory leak, because i need to return that variable and i cannot free it without returning and once i return nothing can be freed, i will try to find if something cann be done for this.
