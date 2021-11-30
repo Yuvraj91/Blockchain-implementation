@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include <openssl/sha.h>
 #include <unistd.h>
+
 typedef struct transaction
 {
     char debit_credit;
@@ -35,6 +36,7 @@ char *sha256(char *str)
     {
         sprintf(hash_str + (i * 2), "%02x", hash[i]);
     }
+    free(hash_str);
     return hash_str;
 }
 //login and signup validation
@@ -111,7 +113,7 @@ char *losin(void){
                         printf("You are now logged in as %s\n",template_profile.username);
                         char *logged_in_user = (char *)malloc(20 * sizeof(char));
                         strcpy(logged_in_user,template_profile.username);
-                        return logged_in_user;
+                        return logged_in_user; 
                     }
                     else{
                         printf("Either the password or the username is not correct");
